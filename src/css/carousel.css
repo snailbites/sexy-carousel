@@ -1,0 +1,181 @@
+.sexyCarousel {
+    position: relative
+}
+
+.sexyCarousel-content {
+    overflow: hidden;
+    margin: 0 50px
+}
+
+.sexyCarousel-slides {
+    display: -ms-flex;
+    display: -webkit-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 0;
+    -webkit-transition: left 350ms ease-in-out;
+    -o-transition: left 350ms ease-in-out;
+    transition: left 350ms ease-in-out
+}
+
+.sexyCarousel-slide {
+    -webkit-flex:1 1;
+    -webkit-box-flex-direction: 1 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+}
+
+.sexyCarousel-slide-four-max {
+    padding: 0 15px;
+    -webkit-flex-basis: 25%;
+    -moz-flex-basis: 25%;
+    -ms-flex-basis: 25%;
+    flex-basis: 25%;
+    max-width: 25%;
+}
+
+.sexyCarousel-slide-three-max {
+    padding: 0 15px;
+    padding: 0 15px;
+    -webkit-flex-basis: 33%;
+    -moz-flex-basis: 33%;
+    -ms-flex-basis: 33%;
+    flex-basis: 33%;
+    max-width: 33%;
+}
+
+.sexyCarousel-slide-two-max {
+    padding: 0 15px;
+    -webkit-flex-basis: 50%;
+    -moz-flex-basis: 50%;
+    -ms-flex-basis: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+}
+
+.sexyCarousel-slide-one-max {
+    -webkit-flex-basis: 100%;
+    -moz-flex-basis: 100%;
+    -ms-flex-basis: 100%;
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+.sexyCarousel-next,.sexyCarousel-previous {
+    background-color: #fff;
+    color: #cf0a2c;
+    z-index: 2;
+    height: 78px;
+    top: 50%;
+    position: absolute;
+    margin-top: -39px;
+    font-size: 26px
+}
+
+.sexyCarousel-next {
+    right: 0
+}
+
+.sexyCarousel-next:before {
+    position: absolute;
+    right: 0
+}
+
+.sexyCarousel-previous {
+    left: 0
+}
+
+.sexyCarousel-previous:before {
+    position: absolute;
+    left: 4px
+}
+
+.sexyCarousel-navigation {
+    text-align: center;
+    margin-top: 15px
+}
+
+.sexyCarousel-navigation>span {
+    -webkit-transition: color 500ms;
+    -o-transition: color 500ms;
+    transition: color 500ms;
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    background: #cacaca;
+    border-radius: 50%;
+    border: 1px solid #cacaca;
+    margin-right: 10px
+}
+
+.sexyCarousel-navigation>span:last-child {
+    margin-right: 0
+}
+
+.sexyCarousel-navigation>.active {
+    background: #009ade;
+    border-color: #009ade
+}
+
+@media (max-width: 767px) {
+    .sexyCarousel-content {
+        margin:0 15px
+    }
+    
+    .sexyCarousel-slide-four-max {
+        -webkit-flex-basis: 100%;
+        -moz-flex-basis: 100%;
+        -ms-flex-basis: 100%;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+    
+    .sexyCarousel-slide-three-max {
+        -webkit-flex-basis: 100%;
+        -moz-flex-basis: 100%;
+        -ms-flex-basis: 100%;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+    
+    .sexyCarousel-slide-two-max {
+        -webkit-flex-basis: 100%;
+        -moz-flex-basis: 100%;
+        -ms-flex-basis: 100%;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width:991px) {
+    .sexyCarousel-slide-four-max {
+        -webkit-flex-basis: 50%;
+        -moz-flex-basis: 50%;
+        -ms-flex-basis: 50%;
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+    
+    .sexyCarousel-slide-three-max {
+        -webkit-flex-basis: 50%;
+        -moz-flex-basis: 50%;
+        -ms-flex-basis: 50%;
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    .sexyCarousel-slide-four-max {
+        -webkit-flex-basis: 33%;
+        -moz-flex-basis: 33%;
+        -ms-flex-basis: 33%;
+        flex-basis: 33%;
+        max-width: 33%;
+    }
+}

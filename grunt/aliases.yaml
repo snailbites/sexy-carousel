@@ -1,0 +1,7 @@
+default:
+  - 'tsd'
+
+dist:
+  - 'clean'
+  - default
+  - 'jspm'
