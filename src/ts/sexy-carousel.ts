@@ -4,7 +4,7 @@ import template from '../html/sexy-carousel.tpl.html!text';
 import '../css/carousel.css!';
 
 'format es6';
-namespace ghs.ux.components {
+namespace ghs.ux.sexycarousel {
     //Required attributes are the following
     // slides = the array that contains all the slides
     // item-template = the template to be used by items
@@ -241,6 +241,6 @@ namespace ghs.ux.components {
 
 
     angular
-        .module('ghs.ux.components')
+        .module('ghs.ux.sexycarousel')
         .directive('ghsSexyCarousel', SexyCarousel.instance);
 } 
