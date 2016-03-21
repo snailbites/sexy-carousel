@@ -1,1 +1,880 @@
-"format global";!function(a){function b(a,b,e){return 4===arguments.length?c.apply(this,arguments):void d(a,{declarative:!0,deps:b,declare:e})}function c(a,b,c,e){d(a,{declarative:!1,deps:b,executingRequire:c,execute:e})}function d(a,b){b.name=a,a in m||(m[a]=b),b.normalizedDeps=b.deps}function e(a,b){if(b[a.groupIndex]=b[a.groupIndex]||[],-1==n.call(b[a.groupIndex],a)){b[a.groupIndex].push(a);for(var c=0,d=a.normalizedDeps.length;d>c;c++){var f=a.normalizedDeps[c],g=m[f];if(g&&!g.evaluated){var h=a.groupIndex+(g.declarative!=a.declarative);if(void 0===g.groupIndex||g.groupIndex<h){if(void 0!==g.groupIndex&&(b[g.groupIndex].splice(n.call(b[g.groupIndex],g),1),0==b[g.groupIndex].length))throw new TypeError("Mixed dependency cycle detected");g.groupIndex=h}e(g,b)}}}}function f(a){var b=m[a];b.groupIndex=0;var c=[];e(b,c);for(var d=!!b.declarative==c.length%2,f=c.length-1;f>=0;f--){for(var g=c[f],i=0;i<g.length;i++){var k=g[i];d?h(k):j(k)}d=!d}}function g(a){return r[a]||(r[a]={name:a,dependencies:[],exports:{},importers:[]})}function h(b){if(!b.module){var c=b.module=g(b.name),d=b.module.exports,e=b.declare.call(a,function(a,b){if(c.locked=!0,"object"==typeof a)for(var e in a)d[e]=a[e];else d[a]=b;for(var f=0,g=c.importers.length;g>f;f++){var h=c.importers[f];if(!h.locked)for(var i=0;i<h.dependencies.length;++i)h.dependencies[i]===c&&h.setters[i](d)}return c.locked=!1,b},b.name);c.setters=e.setters,c.execute=e.execute;for(var f=0,i=b.normalizedDeps.length;i>f;f++){var j,k=b.normalizedDeps[f],n=m[k],o=r[k];o?j=o.exports:n&&!n.declarative?j=n.esModule:n?(h(n),o=n.module,j=o.exports):j=l(k),o&&o.importers?(o.importers.push(c),c.dependencies.push(o)):c.dependencies.push(null),c.setters[f]&&c.setters[f](j)}}}function i(a){var b,c=m[a];if(c)c.declarative?k(a,[]):c.evaluated||j(c),b=c.module.exports;else if(b=l(a),!b)throw new Error("Unable to load dependency "+a+".");return(!c||c.declarative)&&b&&b.__useDefault?b["default"]:b}function j(b){if(!b.module){var c={},d=b.module={exports:c,id:b.name};if(!b.executingRequire)for(var e=0,f=b.normalizedDeps.length;f>e;e++){var g=b.normalizedDeps[e],h=m[g];h&&j(h)}b.evaluated=!0;var k=b.execute.call(a,function(a){for(var c=0,d=b.deps.length;d>c;c++)if(b.deps[c]==a)return i(b.normalizedDeps[c]);throw new TypeError("Module "+a+" not declared as a dependency.")},c,d);if(k&&(d.exports=k),c=d.exports,c&&c.__esModule)b.esModule=c;else{if(b.esModule={},("object"==typeof c||"function"==typeof c)&&c!==a)if(o){var l;for(var n in c)(l=Object.getOwnPropertyDescriptor(c,n))&&q(b.esModule,n,l)}else{var p=c&&c.hasOwnProperty;for(var n in c)p&&!c.hasOwnProperty(n)||(b.esModule[n]=c[n])}b.esModule["default"]=c,q(b.esModule,"__useDefault",{value:!0})}}}function k(b,c){var d=m[b];if(d&&!d.evaluated&&d.declarative){c.push(b);for(var e=0,f=d.normalizedDeps.length;f>e;e++){var g=d.normalizedDeps[e];-1==n.call(c,g)&&(m[g]?k(g,c):l(g))}d.evaluated||(d.evaluated=!0,d.module.execute.call(a))}}function l(a){if(s[a])return s[a];if("@node/"==a.substr(0,6))return require(a.substr(6));var b=m[a];if(!b)throw"Module "+a+" not present.";return f(a),k(a,[]),m[a]=void 0,b.declarative&&q(b.module.exports,"__esModule",{value:!0}),s[a]=b.declarative?b.module.exports:b.esModule}var m={},n=Array.prototype.indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(this[b]===a)return b;return-1},o=!0;try{Object.getOwnPropertyDescriptor({a:0},"a")}catch(p){o=!1}var q;!function(){try{Object.defineProperty({},"a",{})&&(q=Object.defineProperty)}catch(a){q=function(a,b,c){try{a[b]=c.value||c.get.call(a)}catch(d){}}}}();var r={},s={};return function(a,d,e){return function(f){f(function(f){var g={_nodeRequire:"undefined"!=typeof require&&require.resolve&&"undefined"!=typeof process&&require,register:b,registerDynamic:c,get:l,set:function(a,b){s[a]=b},newModule:function(a){return a}};g.set("@empty",{});for(var h=0;h<d.length;h++)(function(a,b){b&&b.__esModule?g.register(a,[],function(a){return{setters:[],execute:function(){for(var c in b)"__esModule"==c||"object"==typeof c&&c+""=="Module"||a(c,b[c])}}}):g.registerDynamic(a,[],!1,function(){return b})})(d[h],arguments[h]);e(g);var i=l(a[0]);if(a.length>1)for(var h=1;h<a.length;h++)l(a[h]);return i.__useDefault?i["default"]:i})}}}("undefined"!=typeof self?self:global)(["1"],[],function(a){!function(b){function c(a,b){a=a.replace(h,"");var c=a.match(k),d=(c[1].split(",")[b]||"require").replace(l,""),e=m[d]||(m[d]=new RegExp(i+d+j,"g"));e.lastIndex=0;for(var f,g=[];f=e.exec(a);)g.push(f[2]||f[3]);return g}function require(a,b,c,d){if("object"==typeof a&&!(a instanceof Array))return require.apply(null,Array.prototype.splice.call(arguments,1,arguments.length-1));if("string"==typeof a&&"function"==typeof b&&(a=[a]),!(a instanceof Array)){if("string"==typeof a){var e=f.get(a);return e.__useDefault?e["default"]:e}throw new TypeError("Invalid require")}for(var g=[],h=0;h<a.length;h++)g.push(f["import"](a[h],d));Promise.all(g).then(function(a){b&&b.apply(null,a)},c)}function d(a,d,e){"string"!=typeof a&&(e=d,d=a,a=null),d instanceof Array||(e=d,d=["require","exports","module"].splice(0,e.length)),"function"!=typeof e&&(e=function(a){return function(){return a}}(e)),void 0===d[d.length-1]&&d.pop();var h,i,j;-1!=(h=g.call(d,"require"))&&(d.splice(h,1),a||(d=d.concat(c(e.toString(),h)))),-1!=(i=g.call(d,"exports"))&&d.splice(i,1),-1!=(j=g.call(d,"module"))&&d.splice(j,1);var k={name:a,deps:d,execute:function(a,c,g){for(var k=[],l=0;l<d.length;l++)k.push(a(d[l]));g.uri=g.id,g.config=function(){},-1!=j&&k.splice(j,0,g),-1!=i&&k.splice(i,0,c),-1!=h&&k.splice(h,0,function(b,c,d){return"string"==typeof b&&"function"!=typeof c?a(b):require.call(f,b,c,d,g.id)});var m=e.apply(-1==i?b:c,k);return"undefined"==typeof m&&g&&(m=g.exports),"undefined"!=typeof m?m:void 0}};if(a)n.anonDefine||n.isBundle?(n.anonDefine&&n.anonDefine.name&&f.registerDynamic(n.anonDefine.name,n.anonDefine.deps,!1,n.anonDefine.execute),n.anonDefine=null):n.anonDefine=k,n.isBundle=!0,f.registerDynamic(a,k.deps,!1,k.execute);else{if(n.anonDefine)throw new TypeError("Multiple defines for anonymous module");n.anonDefine=k}}function e(a){n.anonDefine=null,n.isBundle=!1;var c=b.module,e=b.exports,f=b.define;return b.module=void 0,b.exports=void 0,b.define=d,function(){b.define=f,b.module=c,b.exports=e}}var f=a,g=Array.prototype.indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(this[b]===a)return b;return-1},h=/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/gm,i="(?:^|[^$_a-zA-Z\\xA0-\\uFFFF.])",j="\\s*\\(\\s*(\"([^\"]+)\"|'([^']+)')\\s*\\)",k=/\(([^\)]*)\)/,l=/^\s+|\s+$/g,m={};d.amd={};var n={isBundle:!1,anonDefine:null};f.set("@@amd-helpers",f.newModule({createDefine:e,require:require,define:d,lastModule:n})),f.amdDefine=d,f.amdRequire=require}("undefined"!=typeof self?self:global),function(){var b=a.get("@@amd-helpers").createDefine();define("2",[],function(){return'<div class="sexyCarousel">\n    <div class="sexyCarousel-previous icon-caret-left" ng-if="scVm.showPreviousArrow" ng-click="scVm.previousSlide()"></div>\n    <div class="sexyCarousel-next icon-caret-right" ng-if="scVm.showNextArrow" ng-click="scVm.nextSlide()"></div>\n    <div class="sexyCarousel-content">\n        <div class="sexyCarousel-slides">\n            <div ng-repeat="slide in scVm.slides track by slide.id" class="sexyCarousel-slide {{::scVm.itemClasses}}" ng-style="::{\'height\': scVm.cardHeight}"\n            ng-swipe-right="scVm.previousSlide()" ng-swipe-left="scVm.nextSlide()">\n                <div ng-include="::scVm.itemTemplate" onload="scVm.onItemTemplateLoad()"></div>\n            </div>\n        </div>\n    </div>\n    <div class="sexyCarousel-navigation" ng-if="scVm.showNavigationDots && scVm.navigationalDots.length > 1">\n        <span ng-repeat="dot in scVm.navigationalDots track by $index" ng-click="::scVm.goToSlide(dot.id)" ng-class="{\'active\': $index === scVm.carouselIndex}"></span>\n    </div>\n</div>'}),b()}(),a.register("3",[],function(){return{setters:[],execute:function(){}}}),a.register("1",["2","3"],function(a,b){"use strict";var c,d;b&&b.id;return{setters:[function(a){c=a},function(a){}],execute:function(){"format es6";!function(a){var b;!function(a){var b;!function(a){var b=!1,d=0,e=function(){function a(){this.template=c["default"],this.controllerAs="scVm",this.bindToController={slides:"=",itemTemplate:"@",callBackSliding:"=?",renderedSlides:"=?",itemController:"=?"},this.controller=f}return a.instance=function(){return new a},a}();a.SexyCarousel=e;var f=function(){function a(a,c,e,f,g){"ngInject";var h=this;this.$attrs=e,this.$element=f,this.$timeout=g,this.navigationalDots=[],this.showNextArrow=!1,this.showPreviousArrow=!1,this.carouselIndex=0,this.slidesChanged=function(){h.resetCarousel()},this.browserResize=function(){var a=h.$element[0].getElementsByClassName("sexyCarousel-slide");h.containerWidth=h.$element[0].offsetWidth,h.slideWidth=a.length>0?a[0].offsetWidth:1,h.slidesInview=Math.floor(h.containerWidth/h.slideWidth),0===d&&(d=h.slidesInview),h.slidesInview!==d&&h.resetCarousel(),d=h.slidesInview},this.cardHeight=e.cardHeight||"auto",this.slidesCollectionElement=angular.element(this.$element[0].getElementsByClassName("sexyCarousel-slides")[0]),this.numShowOnDesktop=e.numShowOnDesktop||0,this.hideArrowsOverride=!!e.hideArrows,this.showNavigationDots=!!e.showNavigationDots,this.setItemClass(),b&&(b=!1,g(function(){h.onItemTemplateLoad()}));var i={documentBrowserSizeChange:a.$on("document:browser-size-change",this.browserResize),slidesChanged:c.$watch(function(){return this.slides},this.slidesChanged())};for(var j in i)c.$on("$destroy",i[j])}return a.prototype.resetCarousel=function(){this.carouselIndex=0,this.slidesCollectionElement.css("left","0"),this.shouldArrowsBeShown(),this.setNavigationDots(),this.exposeRenderedSlides()},a.prototype.shouldArrowsBeShown=function(){this.$attrs.hideArrows||(this.showPreviousArrow=this.carouselIndex>0,this.showNextArrow=this.slidesInview*(this.carouselIndex+1)<this.slides.length)},a.prototype.setItemClass=function(){this.itemClasses="sexyCarousel-slide-"+this.numShowOnDesktop+"-max"},a.prototype.setNavigationDots=function(){for(var a=[],b=Math.ceil(this.slides.length/this.slidesInview),c=0;b>c;c++)a.push({id:c});this.navigationalDots=a},a.prototype.carouselSlide=function(a){if(!this.$attrs.loop){this.exposeRenderedSlides();var b=this.carouselIndex*this.slideWidth*this.slidesInview;b=-1*b,this.slidesCollectionElement.css("left",b+"px")}},a.prototype.executeSlidingCallBack=function(){var a=this;this.$timeout(function(){angular.isFunction(a.callBackSliding)&&a.callBackSliding()})},a.prototype.exposeRenderedSlides=function(){isNaN(this.slidesInview)||(this.renderedSlides={index:this.carouselIndex,numSlidesInview:this.slidesInview})},a.prototype.onItemTemplateLoad=function(){b||(b=!0,this.browserResize(),this.shouldArrowsBeShown(),this.exposeRenderedSlides(),this.setNavigationDots())},a.prototype.nextSlide=function(){this.slidesInview*(this.carouselIndex+1)<this.slides.length&&(this.carouselIndex++,this.carouselSlide("next"),this.shouldArrowsBeShown(),this.executeSlidingCallBack())},a.prototype.previousSlide=function(){this.carouselIndex>0&&(this.carouselIndex--,this.carouselSlide("previous"),this.shouldArrowsBeShown(),this.executeSlidingCallBack())},a.prototype.goToSlide=function(a){a!==this.carouselIndex&&(a<this.carouselIndex?(this.carouselIndex=a,this.carouselSlide("previous")):a>this.carouselIndex&&(this.carouselIndex=a,this.carouselSlide("next")),this.shouldArrowsBeShown())},a}();a.SexyCarouselController=f,angular.module("ghs.ux.components").directive("ghsSexyCarousel",e.instance)}(b=a.components||(a.components={}))}(b=a.ux||(a.ux={}))}(d||(d={}))}}}),a.register("src/css/carousel.css!github:systemjs/plugin-css@0.1.20",[],!1,function(){}),function(a){if("undefined"!=typeof document){var b=document,c="appendChild",d="styleSheet",e=b.createElement("style");e.type="text/css",b.getElementsByTagName("head")[0][c](e),e[d]?e[d].cssText=a:e[c](b.createTextNode(a))}}(".sexyCarousel{position:relative}.sexyCarousel-content{overflow:hidden;margin:0 50px}.sexyCarousel-slides{display:-ms-flex;display:-webkit-box;display:-moz-flex;display:-ms-flexbox;display:-webkit-flex;display:flex;margin:0;padding:0;position:relative;left:0;-webkit-transition:left 350ms ease-in-out;-o-transition:left 350ms ease-in-out;transition:left 350ms ease-in-out}.sexyCarousel-slide{-webkit-flex:1 1;-webkit-box-flex-direction:1 1;-ms-flex:1 1;flex:1 1}.sexyCarousel-slide-four-max{padding:0 15px;-webkit-flex-basis:25%;-moz-flex-basis:25%;-ms-flex-basis:25%;flex-basis:25%;max-width:25%}.sexyCarousel-slide-three-max{padding:0 15px;-webkit-flex-basis:33%;-moz-flex-basis:33%;-ms-flex-basis:33%;flex-basis:33%;max-width:33%}.sexyCarousel-slide-two-max{padding:0 15px;-webkit-flex-basis:50%;-moz-flex-basis:50%;-ms-flex-basis:50%;flex-basis:50%;max-width:50%}.sexyCarousel-slide-one-max{-webkit-flex-basis:100%;-moz-flex-basis:100%;-ms-flex-basis:100%;flex-basis:100%;max-width:100%}.sexyCarousel-next,.sexyCarousel-previous{background-color:#fff;color:#cf0a2c;z-index:2;height:78px;top:50%;position:absolute;margin-top:-39px;font-size:26px}.sexyCarousel-next{right:0}.sexyCarousel-next:before{position:absolute;right:0}.sexyCarousel-previous{left:0}.sexyCarousel-previous:before{position:absolute;left:4px}.sexyCarousel-navigation{text-align:center;margin-top:15px}.sexyCarousel-navigation>span{-webkit-transition:color .5s;-o-transition:color .5s;transition:color .5s;display:inline-block;height:10px;width:10px;background:#cacaca;border-radius:50%;border:1px solid #cacaca;margin-right:10px}.sexyCarousel-navigation>span:last-child{margin-right:0}.sexyCarousel-navigation>.active{background:#009ade;border-color:#009ade}@media (max-width:767px){.sexyCarousel-content{margin:0 15px}.sexyCarousel-slide-four-max,.sexyCarousel-slide-three-max,.sexyCarousel-slide-two-max{-webkit-flex-basis:100%;-moz-flex-basis:100%;-ms-flex-basis:100%;flex-basis:100%;max-width:100%}}@media (min-width:768px) and (max-width:991px){.sexyCarousel-slide-four-max,.sexyCarousel-slide-three-max{-webkit-flex-basis:50%;-moz-flex-basis:50%;-ms-flex-basis:50%;flex-basis:50%;max-width:50%}}@media (min-width:992px) and (max-width:1199px){.sexyCarousel-slide-four-max{-webkit-flex-basis:33%;-moz-flex-basis:33%;-ms-flex-basis:33%;flex-basis:33%;max-width:33%}}")})(function(a){a()});
+"format global";
+(function(global) {
+
+  var defined = {};
+
+  // indexOf polyfill for IE8
+  var indexOf = Array.prototype.indexOf || function(item) {
+    for (var i = 0, l = this.length; i < l; i++)
+      if (this[i] === item)
+        return i;
+    return -1;
+  }
+
+  var getOwnPropertyDescriptor = true;
+  try {
+    Object.getOwnPropertyDescriptor({ a: 0 }, 'a');
+  }
+  catch(e) {
+    getOwnPropertyDescriptor = false;
+  }
+
+  var defineProperty;
+  (function () {
+    try {
+      if (!!Object.defineProperty({}, 'a', {}))
+        defineProperty = Object.defineProperty;
+    }
+    catch (e) {
+      defineProperty = function(obj, prop, opt) {
+        try {
+          obj[prop] = opt.value || opt.get.call(obj);
+        }
+        catch(e) {}
+      }
+    }
+  })();
+
+  function register(name, deps, declare) {
+    if (arguments.length === 4)
+      return registerDynamic.apply(this, arguments);
+    doRegister(name, {
+      declarative: true,
+      deps: deps,
+      declare: declare
+    });
+  }
+
+  function registerDynamic(name, deps, executingRequire, execute) {
+    doRegister(name, {
+      declarative: false,
+      deps: deps,
+      executingRequire: executingRequire,
+      execute: execute
+    });
+  }
+
+  function doRegister(name, entry) {
+    entry.name = name;
+
+    // we never overwrite an existing define
+    if (!(name in defined))
+      defined[name] = entry;
+
+    // we have to normalize dependencies
+    // (assume dependencies are normalized for now)
+    // entry.normalizedDeps = entry.deps.map(normalize);
+    entry.normalizedDeps = entry.deps;
+  }
+
+
+  function buildGroups(entry, groups) {
+    groups[entry.groupIndex] = groups[entry.groupIndex] || [];
+
+    if (indexOf.call(groups[entry.groupIndex], entry) != -1)
+      return;
+
+    groups[entry.groupIndex].push(entry);
+
+    for (var i = 0, l = entry.normalizedDeps.length; i < l; i++) {
+      var depName = entry.normalizedDeps[i];
+      var depEntry = defined[depName];
+
+      // not in the registry means already linked / ES6
+      if (!depEntry || depEntry.evaluated)
+        continue;
+
+      // now we know the entry is in our unlinked linkage group
+      var depGroupIndex = entry.groupIndex + (depEntry.declarative != entry.declarative);
+
+      // the group index of an entry is always the maximum
+      if (depEntry.groupIndex === undefined || depEntry.groupIndex < depGroupIndex) {
+
+        // if already in a group, remove from the old group
+        if (depEntry.groupIndex !== undefined) {
+          groups[depEntry.groupIndex].splice(indexOf.call(groups[depEntry.groupIndex], depEntry), 1);
+
+          // if the old group is empty, then we have a mixed depndency cycle
+          if (groups[depEntry.groupIndex].length == 0)
+            throw new TypeError("Mixed dependency cycle detected");
+        }
+
+        depEntry.groupIndex = depGroupIndex;
+      }
+
+      buildGroups(depEntry, groups);
+    }
+  }
+
+  function link(name) {
+    var startEntry = defined[name];
+
+    startEntry.groupIndex = 0;
+
+    var groups = [];
+
+    buildGroups(startEntry, groups);
+
+    var curGroupDeclarative = !!startEntry.declarative == groups.length % 2;
+    for (var i = groups.length - 1; i >= 0; i--) {
+      var group = groups[i];
+      for (var j = 0; j < group.length; j++) {
+        var entry = group[j];
+
+        // link each group
+        if (curGroupDeclarative)
+          linkDeclarativeModule(entry);
+        else
+          linkDynamicModule(entry);
+      }
+      curGroupDeclarative = !curGroupDeclarative; 
+    }
+  }
+
+  // module binding records
+  var moduleRecords = {};
+  function getOrCreateModuleRecord(name) {
+    return moduleRecords[name] || (moduleRecords[name] = {
+      name: name,
+      dependencies: [],
+      exports: {}, // start from an empty module and extend
+      importers: []
+    })
+  }
+
+  function linkDeclarativeModule(entry) {
+    // only link if already not already started linking (stops at circular)
+    if (entry.module)
+      return;
+
+    var module = entry.module = getOrCreateModuleRecord(entry.name);
+    var exports = entry.module.exports;
+
+    var declaration = entry.declare.call(global, function(name, value) {
+      module.locked = true;
+
+      if (typeof name == 'object') {
+        for (var p in name)
+          exports[p] = name[p];
+      }
+      else {
+        exports[name] = value;
+      }
+
+      for (var i = 0, l = module.importers.length; i < l; i++) {
+        var importerModule = module.importers[i];
+        if (!importerModule.locked) {
+          for (var j = 0; j < importerModule.dependencies.length; ++j) {
+            if (importerModule.dependencies[j] === module) {
+              importerModule.setters[j](exports);
+            }
+          }
+        }
+      }
+
+      module.locked = false;
+      return value;
+    }, entry.name);
+
+    module.setters = declaration.setters;
+    module.execute = declaration.execute;
+
+    // now link all the module dependencies
+    for (var i = 0, l = entry.normalizedDeps.length; i < l; i++) {
+      var depName = entry.normalizedDeps[i];
+      var depEntry = defined[depName];
+      var depModule = moduleRecords[depName];
+
+      // work out how to set depExports based on scenarios...
+      var depExports;
+
+      if (depModule) {
+        depExports = depModule.exports;
+      }
+      else if (depEntry && !depEntry.declarative) {
+        depExports = depEntry.esModule;
+      }
+      // in the module registry
+      else if (!depEntry) {
+        depExports = load(depName);
+      }
+      // we have an entry -> link
+      else {
+        linkDeclarativeModule(depEntry);
+        depModule = depEntry.module;
+        depExports = depModule.exports;
+      }
+
+      // only declarative modules have dynamic bindings
+      if (depModule && depModule.importers) {
+        depModule.importers.push(module);
+        module.dependencies.push(depModule);
+      }
+      else
+        module.dependencies.push(null);
+
+      // run the setter for this dependency
+      if (module.setters[i])
+        module.setters[i](depExports);
+    }
+  }
+
+  // An analog to loader.get covering execution of all three layers (real declarative, simulated declarative, simulated dynamic)
+  function getModule(name) {
+    var exports;
+    var entry = defined[name];
+
+    if (!entry) {
+      exports = load(name);
+      if (!exports)
+        throw new Error("Unable to load dependency " + name + ".");
+    }
+
+    else {
+      if (entry.declarative)
+        ensureEvaluated(name, []);
+
+      else if (!entry.evaluated)
+        linkDynamicModule(entry);
+
+      exports = entry.module.exports;
+    }
+
+    if ((!entry || entry.declarative) && exports && exports.__useDefault)
+      return exports['default'];
+
+    return exports;
+  }
+
+  function linkDynamicModule(entry) {
+    if (entry.module)
+      return;
+
+    var exports = {};
+
+    var module = entry.module = { exports: exports, id: entry.name };
+
+    // AMD requires execute the tree first
+    if (!entry.executingRequire) {
+      for (var i = 0, l = entry.normalizedDeps.length; i < l; i++) {
+        var depName = entry.normalizedDeps[i];
+        var depEntry = defined[depName];
+        if (depEntry)
+          linkDynamicModule(depEntry);
+      }
+    }
+
+    // now execute
+    entry.evaluated = true;
+    var output = entry.execute.call(global, function(name) {
+      for (var i = 0, l = entry.deps.length; i < l; i++) {
+        if (entry.deps[i] != name)
+          continue;
+        return getModule(entry.normalizedDeps[i]);
+      }
+      throw new TypeError('Module ' + name + ' not declared as a dependency.');
+    }, exports, module);
+
+    if (output)
+      module.exports = output;
+
+    // create the esModule object, which allows ES6 named imports of dynamics
+    exports = module.exports;
+ 
+    if (exports && exports.__esModule) {
+      entry.esModule = exports;
+    }
+    else {
+      entry.esModule = {};
+      
+      // don't trigger getters/setters in environments that support them
+      if ((typeof exports == 'object' || typeof exports == 'function') && exports !== global) {
+        if (getOwnPropertyDescriptor) {
+          var d;
+          for (var p in exports)
+            if (d = Object.getOwnPropertyDescriptor(exports, p))
+              defineProperty(entry.esModule, p, d);
+        }
+        else {
+          var hasOwnProperty = exports && exports.hasOwnProperty;
+          for (var p in exports) {
+            if (!hasOwnProperty || exports.hasOwnProperty(p))
+              entry.esModule[p] = exports[p];
+          }
+         }
+       }
+      entry.esModule['default'] = exports;
+      defineProperty(entry.esModule, '__useDefault', {
+        value: true
+      });
+    }
+  }
+
+  /*
+   * Given a module, and the list of modules for this current branch,
+   *  ensure that each of the dependencies of this module is evaluated
+   *  (unless one is a circular dependency already in the list of seen
+   *  modules, in which case we execute it)
+   *
+   * Then we evaluate the module itself depth-first left to right 
+   * execution to match ES6 modules
+   */
+  function ensureEvaluated(moduleName, seen) {
+    var entry = defined[moduleName];
+
+    // if already seen, that means it's an already-evaluated non circular dependency
+    if (!entry || entry.evaluated || !entry.declarative)
+      return;
+
+    // this only applies to declarative modules which late-execute
+
+    seen.push(moduleName);
+
+    for (var i = 0, l = entry.normalizedDeps.length; i < l; i++) {
+      var depName = entry.normalizedDeps[i];
+      if (indexOf.call(seen, depName) == -1) {
+        if (!defined[depName])
+          load(depName);
+        else
+          ensureEvaluated(depName, seen);
+      }
+    }
+
+    if (entry.evaluated)
+      return;
+
+    entry.evaluated = true;
+    entry.module.execute.call(global);
+  }
+
+  // magical execution function
+  var modules = {};
+  function load(name) {
+    if (modules[name])
+      return modules[name];
+
+    // node core modules
+    if (name.substr(0, 6) == '@node/')
+      return require(name.substr(6));
+
+    var entry = defined[name];
+
+    // first we check if this module has already been defined in the registry
+    if (!entry)
+      throw "Module " + name + " not present.";
+
+    // recursively ensure that the module and all its 
+    // dependencies are linked (with dependency group handling)
+    link(name);
+
+    // now handle dependency execution in correct order
+    ensureEvaluated(name, []);
+
+    // remove from the registry
+    defined[name] = undefined;
+
+    // exported modules get __esModule defined for interop
+    if (entry.declarative)
+      defineProperty(entry.module.exports, '__esModule', { value: true });
+
+    // return the defined module object
+    return modules[name] = entry.declarative ? entry.module.exports : entry.esModule;
+  };
+
+  return function(mains, depNames, declare) {
+    return function(formatDetect) {
+      formatDetect(function(deps) {
+        var System = {
+          _nodeRequire: typeof require != 'undefined' && require.resolve && typeof process != 'undefined' && require,
+          register: register,
+          registerDynamic: registerDynamic,
+          get: load, 
+          set: function(name, module) {
+            modules[name] = module; 
+          },
+          newModule: function(module) {
+            return module;
+          }
+        };
+        System.set('@empty', {});
+
+        // register external dependencies
+        for (var i = 0; i < depNames.length; i++) (function(depName, dep) {
+          if (dep && dep.__esModule)
+            System.register(depName, [], function(_export) {
+              return {
+                setters: [],
+                execute: function() {
+                  for (var p in dep)
+                    if (p != '__esModule' && !(typeof p == 'object' && p + '' == 'Module'))
+                      _export(p, dep[p]);
+                }
+              };
+            });
+          else
+            System.registerDynamic(depName, [], false, function() {
+              return dep;
+            });
+        })(depNames[i], arguments[i]);
+
+        // register modules in this bundle
+        declare(System);
+
+        // load mains
+        var firstLoad = load(mains[0]);
+        if (mains.length > 1)
+          for (var i = 1; i < mains.length; i++)
+            load(mains[i]);
+
+        if (firstLoad.__useDefault)
+          return firstLoad['default'];
+        else
+          return firstLoad;
+      });
+    };
+  };
+
+})(typeof self != 'undefined' ? self : global)
+/* (['mainModule'], ['external-dep'], function($__System) {
+  System.register(...);
+})
+(function(factory) {
+  if (typeof define && define.amd)
+    define(['external-dep'], factory);
+  // etc UMD / module pattern
+})*/
+
+(["1"], [], function($__System) {
+
+(function(__global) {
+  var loader = $__System;
+  var indexOf = Array.prototype.indexOf || function(item) {
+    for (var i = 0, l = this.length; i < l; i++)
+      if (this[i] === item)
+        return i;
+    return -1;
+  }
+
+  var commentRegEx = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg;
+  var cjsRequirePre = "(?:^|[^$_a-zA-Z\\xA0-\\uFFFF.])";
+  var cjsRequirePost = "\\s*\\(\\s*(\"([^\"]+)\"|'([^']+)')\\s*\\)";
+  var fnBracketRegEx = /\(([^\)]*)\)/;
+  var wsRegEx = /^\s+|\s+$/g;
+  
+  var requireRegExs = {};
+
+  function getCJSDeps(source, requireIndex) {
+
+    // remove comments
+    source = source.replace(commentRegEx, '');
+
+    // determine the require alias
+    var params = source.match(fnBracketRegEx);
+    var requireAlias = (params[1].split(',')[requireIndex] || 'require').replace(wsRegEx, '');
+
+    // find or generate the regex for this requireAlias
+    var requireRegEx = requireRegExs[requireAlias] || (requireRegExs[requireAlias] = new RegExp(cjsRequirePre + requireAlias + cjsRequirePost, 'g'));
+
+    requireRegEx.lastIndex = 0;
+
+    var deps = [];
+
+    var match;
+    while (match = requireRegEx.exec(source))
+      deps.push(match[2] || match[3]);
+
+    return deps;
+  }
+
+  /*
+    AMD-compatible require
+    To copy RequireJS, set window.require = window.requirejs = loader.amdRequire
+  */
+  function require(names, callback, errback, referer) {
+    // in amd, first arg can be a config object... we just ignore
+    if (typeof names == 'object' && !(names instanceof Array))
+      return require.apply(null, Array.prototype.splice.call(arguments, 1, arguments.length - 1));
+
+    // amd require
+    if (typeof names == 'string' && typeof callback == 'function')
+      names = [names];
+    if (names instanceof Array) {
+      var dynamicRequires = [];
+      for (var i = 0; i < names.length; i++)
+        dynamicRequires.push(loader['import'](names[i], referer));
+      Promise.all(dynamicRequires).then(function(modules) {
+        if (callback)
+          callback.apply(null, modules);
+      }, errback);
+    }
+
+    // commonjs require
+    else if (typeof names == 'string') {
+      var module = loader.get(names);
+      return module.__useDefault ? module['default'] : module;
+    }
+
+    else
+      throw new TypeError('Invalid require');
+  }
+
+  function define(name, deps, factory) {
+    if (typeof name != 'string') {
+      factory = deps;
+      deps = name;
+      name = null;
+    }
+    if (!(deps instanceof Array)) {
+      factory = deps;
+      deps = ['require', 'exports', 'module'].splice(0, factory.length);
+    }
+
+    if (typeof factory != 'function')
+      factory = (function(factory) {
+        return function() { return factory; }
+      })(factory);
+
+    // in IE8, a trailing comma becomes a trailing undefined entry
+    if (deps[deps.length - 1] === undefined)
+      deps.pop();
+
+    // remove system dependencies
+    var requireIndex, exportsIndex, moduleIndex;
+    
+    if ((requireIndex = indexOf.call(deps, 'require')) != -1) {
+      
+      deps.splice(requireIndex, 1);
+
+      // only trace cjs requires for non-named
+      // named defines assume the trace has already been done
+      if (!name)
+        deps = deps.concat(getCJSDeps(factory.toString(), requireIndex));
+    }
+
+    if ((exportsIndex = indexOf.call(deps, 'exports')) != -1)
+      deps.splice(exportsIndex, 1);
+    
+    if ((moduleIndex = indexOf.call(deps, 'module')) != -1)
+      deps.splice(moduleIndex, 1);
+
+    var define = {
+      name: name,
+      deps: deps,
+      execute: function(req, exports, module) {
+
+        var depValues = [];
+        for (var i = 0; i < deps.length; i++)
+          depValues.push(req(deps[i]));
+
+        module.uri = module.id;
+
+        module.config = function() {};
+
+        // add back in system dependencies
+        if (moduleIndex != -1)
+          depValues.splice(moduleIndex, 0, module);
+        
+        if (exportsIndex != -1)
+          depValues.splice(exportsIndex, 0, exports);
+        
+        if (requireIndex != -1) 
+          depValues.splice(requireIndex, 0, function(names, callback, errback) {
+            if (typeof names == 'string' && typeof callback != 'function')
+              return req(names);
+            return require.call(loader, names, callback, errback, module.id);
+          });
+
+        var output = factory.apply(exportsIndex == -1 ? __global : exports, depValues);
+
+        if (typeof output == 'undefined' && module)
+          output = module.exports;
+
+        if (typeof output != 'undefined')
+          return output;
+      }
+    };
+
+    // anonymous define
+    if (!name) {
+      // already defined anonymously -> throw
+      if (lastModule.anonDefine)
+        throw new TypeError('Multiple defines for anonymous module');
+      lastModule.anonDefine = define;
+    }
+    // named define
+    else {
+      // if we don't have any other defines,
+      // then let this be an anonymous define
+      // this is just to support single modules of the form:
+      // define('jquery')
+      // still loading anonymously
+      // because it is done widely enough to be useful
+      if (!lastModule.anonDefine && !lastModule.isBundle) {
+        lastModule.anonDefine = define;
+      }
+      // otherwise its a bundle only
+      else {
+        // if there is an anonDefine already (we thought it could have had a single named define)
+        // then we define it now
+        // this is to avoid defining named defines when they are actually anonymous
+        if (lastModule.anonDefine && lastModule.anonDefine.name)
+          loader.registerDynamic(lastModule.anonDefine.name, lastModule.anonDefine.deps, false, lastModule.anonDefine.execute);
+
+        lastModule.anonDefine = null;
+      }
+
+      // note this is now a bundle
+      lastModule.isBundle = true;
+
+      // define the module through the register registry
+      loader.registerDynamic(name, define.deps, false, define.execute);
+    }
+  }
+  define.amd = {};
+
+  // adds define as a global (potentially just temporarily)
+  function createDefine(loader) {
+    lastModule.anonDefine = null;
+    lastModule.isBundle = false;
+
+    // ensure no NodeJS environment detection
+    var oldModule = __global.module;
+    var oldExports = __global.exports;
+    var oldDefine = __global.define;
+
+    __global.module = undefined;
+    __global.exports = undefined;
+    __global.define = define;
+
+    return function() {
+      __global.define = oldDefine;
+      __global.module = oldModule;
+      __global.exports = oldExports;
+    };
+  }
+
+  var lastModule = {
+    isBundle: false,
+    anonDefine: null
+  };
+
+  loader.set('@@amd-helpers', loader.newModule({
+    createDefine: createDefine,
+    require: require,
+    define: define,
+    lastModule: lastModule
+  }));
+  loader.amdDefine = define;
+  loader.amdRequire = require;
+})(typeof self != 'undefined' ? self : global);
+
+"bundle";
+(function() {
+var _removeDefine = $__System.get("@@amd-helpers").createDefine();
+define("2", [], function() {
+  return "<div class=\"sexyCarousel\">\n    <div class=\"sexyCarousel-previous icon-caret-left\" ng-if=\"scVm.showPreviousArrow\" ng-click=\"scVm.previousSlide()\"></div>\n    <div class=\"sexyCarousel-next icon-caret-right\" ng-if=\"scVm.showNextArrow\" ng-click=\"scVm.nextSlide()\"></div>\n    <div class=\"sexyCarousel-content\">\n        <div class=\"sexyCarousel-slides\">\n            <div ng-repeat=\"slide in scVm.slides track by slide.id\" class=\"sexyCarousel-slide {{::scVm.itemClasses}}\" ng-style=\"::{'height': scVm.cardHeight}\"\n            ng-swipe-right=\"scVm.previousSlide()\" ng-swipe-left=\"scVm.nextSlide()\">\n                <div ng-include=\"::scVm.itemTemplate\" onload=\"scVm.onItemTemplateLoad()\"></div>\n            </div>\n        </div>\n    </div>\n    <div class=\"sexyCarousel-navigation\" ng-if=\"scVm.showNavigationDots && scVm.navigationalDots.length > 1\">\n        <span ng-repeat=\"dot in scVm.navigationalDots track by $index\" ng-click=\"::scVm.goToSlide(dot.id)\" ng-class=\"{'active': $index === scVm.carouselIndex}\"></span>\n    </div>\n</div>";
+});
+
+_removeDefine();
+})();
+$__System.register("3", [], function() { return { setters: [], execute: function() {} } });
+
+$__System.register("4", ["2", "3"], function(exports_1, context_1) {
+  "use strict";
+  var __moduleName = context_1 && context_1.id;
+  var sexy_carousel_tpl_html_text_1;
+  var carouselItemLoaded,
+      numberInvewSlides,
+      SexyCarousel,
+      SexyCarouselController;
+  return {
+    setters: [function(sexy_carousel_tpl_html_text_1_1) {
+      sexy_carousel_tpl_html_text_1 = sexy_carousel_tpl_html_text_1_1;
+    }, function(_1) {}],
+    execute: function() {
+      carouselItemLoaded = false, numberInvewSlides = 0;
+      SexyCarousel = (function() {
+        function SexyCarousel() {
+          this.template = sexy_carousel_tpl_html_text_1.default;
+          this.controllerAs = 'scVm';
+          this.bindToController = {
+            slides: '=',
+            itemTemplate: '@',
+            callBackSliding: '=?',
+            renderedSlides: '=?',
+            itemController: '=?'
+          };
+          this.controller = SexyCarouselController;
+        }
+        SexyCarousel.instance = function() {
+          return new SexyCarousel();
+        };
+        return SexyCarousel;
+      }());
+      exports_1("default", SexyCarousel);
+      SexyCarouselController = (function() {
+        function SexyCarouselController($rootScope, $scope, $attrs, $element, $timeout) {
+          'ngInject';
+          var _this = this;
+          this.$attrs = $attrs;
+          this.$element = $element;
+          this.$timeout = $timeout;
+          this.navigationalDots = [];
+          this.showNextArrow = false;
+          this.showPreviousArrow = false;
+          this.carouselIndex = 0;
+          this.slidesChanged = function() {
+            _this.resetCarousel();
+          };
+          this.browserResize = function() {
+            var slideElements = _this.$element[0].getElementsByClassName('sexyCarousel-slide');
+            _this.containerWidth = _this.$element[0].offsetWidth;
+            _this.slideWidth = slideElements.length > 0 ? slideElements[0].offsetWidth : 1;
+            _this.slidesInview = Math.floor(_this.containerWidth / _this.slideWidth);
+            if (numberInvewSlides === 0) {
+              numberInvewSlides = _this.slidesInview;
+            }
+            if (_this.slidesInview !== numberInvewSlides) {
+              _this.resetCarousel();
+            }
+            numberInvewSlides = _this.slidesInview;
+          };
+          this.cardHeight = $attrs.cardHeight || 'auto';
+          this.slidesCollectionElement = angular.element(this.$element[0].getElementsByClassName('sexyCarousel-slides')[0]);
+          this.numShowOnDesktop = $attrs.numShowOnDesktop || 0;
+          this.hideArrowsOverride = !!($attrs.hideArrows);
+          this.showNavigationDots = !!($attrs.showNavigationDots);
+          this.setItemClass();
+          if (carouselItemLoaded) {
+            carouselItemLoaded = false;
+            $timeout(function() {
+              _this.onItemTemplateLoad();
+            });
+          }
+          var $rootListeners = {
+            documentBrowserSizeChange: $rootScope.$on('document:browser-size-change', this.browserResize),
+            slidesChanged: $scope.$watch(function() {
+              return this.slides;
+            }, this.slidesChanged())
+          };
+          for (var unbind in $rootListeners) {
+            $scope.$on('$destroy', $rootListeners[unbind]);
+          }
+        }
+        SexyCarouselController.prototype.resetCarousel = function() {
+          this.carouselIndex = 0;
+          this.slidesCollectionElement.css('left', '0');
+          this.shouldArrowsBeShown();
+          this.setNavigationDots();
+          this.exposeRenderedSlides();
+        };
+        SexyCarouselController.prototype.shouldArrowsBeShown = function() {
+          if (!this.$attrs.hideArrows) {
+            this.showPreviousArrow = this.carouselIndex > 0;
+            this.showNextArrow = ((this.slidesInview * (this.carouselIndex + 1)) < this.slides.length);
+          }
+        };
+        SexyCarouselController.prototype.setItemClass = function() {
+          this.itemClasses = "sexyCarousel-slide-" + this.numShowOnDesktop + "-max";
+        };
+        SexyCarouselController.prototype.setNavigationDots = function() {
+          var navDots = [],
+              numDots = Math.ceil(this.slides.length / this.slidesInview);
+          for (var i = 0; i < numDots; i++) {
+            navDots.push({id: i});
+          }
+          this.navigationalDots = navDots;
+        };
+        SexyCarouselController.prototype.carouselSlide = function(direction) {
+          if (!this.$attrs.loop) {
+            this.exposeRenderedSlides();
+            var leftAmount = this.carouselIndex * this.slideWidth * this.slidesInview;
+            leftAmount = leftAmount * -1;
+            this.slidesCollectionElement.css('left', leftAmount + 'px');
+          }
+        };
+        SexyCarouselController.prototype.executeSlidingCallBack = function() {
+          var _this = this;
+          this.$timeout(function() {
+            if (angular.isFunction(_this.callBackSliding)) {
+              _this.callBackSliding();
+            }
+          });
+        };
+        SexyCarouselController.prototype.exposeRenderedSlides = function() {
+          if (!isNaN(this.slidesInview)) {
+            this.renderedSlides = {
+              'index': this.carouselIndex,
+              'numSlidesInview': this.slidesInview
+            };
+          }
+        };
+        SexyCarouselController.prototype.onItemTemplateLoad = function() {
+          if (!carouselItemLoaded) {
+            carouselItemLoaded = true;
+            this.browserResize();
+            this.shouldArrowsBeShown();
+            this.exposeRenderedSlides();
+            this.setNavigationDots();
+          }
+        };
+        SexyCarouselController.prototype.nextSlide = function() {
+          if ((this.slidesInview * (this.carouselIndex + 1)) < this.slides.length) {
+            this.carouselIndex++;
+            this.carouselSlide('next');
+            this.shouldArrowsBeShown();
+            this.executeSlidingCallBack();
+          }
+        };
+        SexyCarouselController.prototype.previousSlide = function() {
+          if (this.carouselIndex > 0) {
+            this.carouselIndex--;
+            this.carouselSlide('previous');
+            this.shouldArrowsBeShown();
+            this.executeSlidingCallBack();
+          }
+        };
+        SexyCarouselController.prototype.goToSlide = function(slideToGoTo) {
+          if (slideToGoTo === this.carouselIndex) {
+            return;
+          }
+          if (slideToGoTo < this.carouselIndex) {
+            this.carouselIndex = slideToGoTo;
+            this.carouselSlide('previous');
+          } else if (slideToGoTo > this.carouselIndex) {
+            this.carouselIndex = slideToGoTo;
+            this.carouselSlide('next');
+          }
+          this.shouldArrowsBeShown();
+        };
+        return SexyCarouselController;
+      }());
+      exports_1("SexyCarouselController", SexyCarouselController);
+    }
+  };
+});
+
+$__System.register("1", ["4"], function(exports_1, context_1) {
+  "use strict";
+  var __moduleName = context_1 && context_1.id;
+  var sexy_carousel_1;
+  return {
+    setters: [function(sexy_carousel_1_1) {
+      sexy_carousel_1 = sexy_carousel_1_1;
+    }],
+    execute: function() {
+      (function() {
+        angular.module('ghs.ux.sexycarousel', []);
+        angular.module('ghs.ux.sexycarousel').directive('ghsSexyCarousel', sexy_carousel_1.default.instance);
+      })();
+    }
+  };
+});
+
+$__System.register('src/css/carousel.css!github:systemjs/plugin-css@0.1.20', [], false, function() {});
+(function(c){if (typeof document == 'undefined') return; var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
+(".sexyCarousel{position:relative}.sexyCarousel-content{overflow:hidden;margin:0 50px}.sexyCarousel-slides{display:-ms-flex;display:-webkit-box;display:-moz-flex;display:-ms-flexbox;display:-webkit-flex;display:flex;margin:0;padding:0;position:relative;left:0;-webkit-transition:left 350ms ease-in-out;-o-transition:left 350ms ease-in-out;transition:left 350ms ease-in-out}.sexyCarousel-slide{-webkit-flex:1 1;-webkit-box-flex-direction:1 1;-ms-flex:1 1;flex:1 1}.sexyCarousel-slide-four-max{padding:0 15px;-webkit-flex-basis:25%;-moz-flex-basis:25%;-ms-flex-basis:25%;flex-basis:25%;max-width:25%}.sexyCarousel-slide-three-max{padding:0 15px;padding:0 15px;-webkit-flex-basis:33%;-moz-flex-basis:33%;-ms-flex-basis:33%;flex-basis:33%;max-width:33%}.sexyCarousel-slide-two-max{padding:0 15px;-webkit-flex-basis:50%;-moz-flex-basis:50%;-ms-flex-basis:50%;flex-basis:50%;max-width:50%}.sexyCarousel-slide-one-max{-webkit-flex-basis:100%;-moz-flex-basis:100%;-ms-flex-basis:100%;flex-basis:100%;max-width:100%}.sexyCarousel-next,.sexyCarousel-previous{background-color:#fff;color:#cf0a2c;z-index:2;height:78px;top:50%;position:absolute;margin-top:-39px;font-size:26px}.sexyCarousel-next{right:0}.sexyCarousel-next:before{position:absolute;right:0}.sexyCarousel-previous{left:0}.sexyCarousel-previous:before{position:absolute;left:4px}.sexyCarousel-navigation{text-align:center;margin-top:15px}.sexyCarousel-navigation>span{-webkit-transition:color .5s;-o-transition:color .5s;transition:color .5s;display:inline-block;height:10px;width:10px;background:#cacaca;border-radius:50%;border:1px solid #cacaca;margin-right:10px}.sexyCarousel-navigation>span:last-child{margin-right:0}.sexyCarousel-navigation>.active{background:#009ade;border-color:#009ade}@media (max-width:767px){.sexyCarousel-content{margin:0 15px}.sexyCarousel-slide-four-max{-webkit-flex-basis:100%;-moz-flex-basis:100%;-ms-flex-basis:100%;flex-basis:100%;max-width:100%}.sexyCarousel-slide-three-max{-webkit-flex-basis:100%;-moz-flex-basis:100%;-ms-flex-basis:100%;flex-basis:100%;max-width:100%}.sexyCarousel-slide-two-max{-webkit-flex-basis:100%;-moz-flex-basis:100%;-ms-flex-basis:100%;flex-basis:100%;max-width:100%}}@media (min-width:768px) and (max-width:991px){.sexyCarousel-slide-four-max{-webkit-flex-basis:50%;-moz-flex-basis:50%;-ms-flex-basis:50%;flex-basis:50%;max-width:50%}.sexyCarousel-slide-three-max{-webkit-flex-basis:50%;-moz-flex-basis:50%;-ms-flex-basis:50%;flex-basis:50%;max-width:50%}}@media (min-width:992px) and (max-width:1199px){.sexyCarousel-slide-four-max{-webkit-flex-basis:33%;-moz-flex-basis:33%;-ms-flex-basis:33%;flex-basis:33%;max-width:33%}}");
+})
+(function(factory) {
+  factory();
+});

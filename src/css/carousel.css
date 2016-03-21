@@ -24,10 +24,10 @@
 }
 
 .sexyCarousel-slide {
-    -webkit-flex:1 1;
-    -webkit-box-flex-direction: 1 1;
-    -ms-flex: 1 1;
-    flex: 1 1;
+    -webkit-flex:1 0;
+    -webkit-box-flex-direction: 1 0;
+    -ms-flex: 1 0;
+    flex: 1 0;
 }
 
 .sexyCarousel-slide-four-max {
