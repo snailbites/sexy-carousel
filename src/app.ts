@@ -4,5 +4,5 @@ import SexyCarousel from './ts/sexy-carousel';
 
 (function () {
     angular.module('ghs.ux.sexycarousel', []);
-    angular.module('ghs.ux.sexycarousel').directive(SexyCarousel.instance);
+    angular.module('ghs.ux.sexycarousel').directive('ghsSexyCarousel', SexyCarousel.instance);
 })();
