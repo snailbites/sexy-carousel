@@ -3,7 +3,6 @@
 import template from '../html/sexy-carousel.tpl.html!text';
 import '../css/carousel.css!';
 
-'format es6';
 namespace ghs.ux.sexycarousel {
     //Required attributes are the following
     // slides = the array that contains all the slides
@@ -238,9 +237,4 @@ namespace ghs.ux.sexycarousel {
             this.shouldArrowsBeShown();
         }
     }
-
-
-    angular
-        .module('ghs.ux.sexycarousel')
-        .directive('ghsSexyCarousel', SexyCarousel.instance);
 } 
