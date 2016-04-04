@@ -114,12 +114,12 @@ export class SexyCarouselController {
         this.exposeRenderedSlides();
     }
 
-    private slidesChanged ():void {
+    private slidesChanged = ():void => {
         this.resetCarousel();
     }
 
     //Calculates slide width, slides in view and contanier width.
-    private browserResize ():void {
+    private browserResize = ():void => {
         let slideElements = this.$element[0].getElementsByClassName('sexyCarousel-slide');
 
         this.containerWidth = this.$element[0].offsetWidth;

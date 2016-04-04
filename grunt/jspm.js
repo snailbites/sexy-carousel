@@ -2,7 +2,7 @@
 module.exports = {
     options: {
         sfx: true,
-        minify: false,
+        minify: true,
         mangle: false,
         sourceMaps: false
     },
