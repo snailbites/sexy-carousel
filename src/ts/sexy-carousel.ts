@@ -1,7 +1,7 @@
 ///<reference path="../../typings/tsd.d.ts"/>
 
-import template from '../html/sexy-carousel.tpl.html!text';
-import '../css/carousel.css!';
+import template from "../html/sexy-carousel.tpl.html!text";
+import "../css/carousel.css!";
 
 
 //Required attributes are the following
@@ -16,19 +16,15 @@ import '../css/carousel.css!';
 // In the future feature
 // loop = defaults to false, if true, the carousel won't have a start or end point and will continuously loop
 
-//Local vars
-let carouselItemLoaded: boolean = false, //Variable to denote that the item ng-include has completed
-    numberInvewSlides: number = 0; //number of slides in view - if this and this.slidesInview don't match, reset the carousel.
-
 export default class SexyCarousel implements ng.IDirective {
 
-    static instance(): ng.IDirective {
+    static instance():ng.IDirective {
         return new SexyCarousel();
     }
 
-    template: string = template;
-    controllerAs: string = 'scVm';
-    bindToController: any = {
+    template:string = template;
+    controllerAs:string = 'scVm';
+    bindToController:any = {
         slides: '=',
         itemTemplate: '@',
         callBackSliding: '=?',
@@ -39,26 +35,41 @@ export default class SexyCarousel implements ng.IDirective {
 }
 
 export class SexyCarouselController {
-    public slides: any;
-    public containerWidth: number;
-    public navigationalDots: any = [];
-    public callBackSliding: any;
-    public showNavigationDots: boolean; //This is a attribute property to disable the navigation dots
-    public showNextArrow: boolean = false;
-    public showPreviousArrow: boolean = false;
-    public hideArrowsOverride: boolean;
-    public itemClasses: string;
-    public carouselIndex: number = 0;
-    public cardHeight: string; //Attribute property - sets to auto if not passed in
+    public slides:any;
+    public containerWidth:number;
+    public navigationalDots:any = [];
+    public callBackSliding:any;
+    public showNavigationDots:boolean; //This is a attribute property to disable the navigation dots
+    public showNextArrow:boolean = false;
+    public showPreviousArrow:boolean = false;
+    public hideArrowsOverride:boolean;
+    public itemClasses:string;
+    public carouselIndex:number = 0;
+    public cardHeight:string; //Attribute property - sets to auto if not passed in
 
-    private slidesInview: number;
-    private slideWidth: number;
-    private numShowOnDesktop: number;
-    private slidesCollectionElement: any;
-    private renderedSlides: any;
+    public carouselItemLoaded:boolean = false; //Variable to denote that the item ng-include has completed
+    public numberInvewSlides:number = 0; //number of slides in view - if this and this.slidesInview don't match, reset the carousel.
+    public slidesInview:number;
+    public slideWidth:number;
+    public numShowOnDesktop:number;
+    public slidesCollectionElement:any;
+    public renderedSlides:any;
 
-    constructor($rootScope, $scope, private $attrs, private $element, private $timeout) {
-        'ngInject';
+
+    static $inject = [
+        '$rootScope',
+        '$scope',
+        '$attrs',
+        '$element',
+        '$timeout'
+    ];
+
+    constructor($rootScope,
+                $scope,
+                private $attrs,
+                private $element,
+                private $timeout) {
+
         this.cardHeight = $attrs.cardHeight || 'auto';
         this.slidesCollectionElement = angular.element(this.$element[0].getElementsByClassName('sexyCarousel-slides')[0]);
         this.numShowOnDesktop = $attrs.numShowOnDesktop || 0;
@@ -71,18 +82,18 @@ export class SexyCarouselController {
 
         //Do a check if the carouselItemLoaded variable is true - this means the carousel has been loaded once before
         //If it's been loaded in the past, will have to rerun the ontemplateload function to handle proper set up of arrows and nav dots
-        if (carouselItemLoaded) {
-            carouselItemLoaded = false;
+        if (this.carouselItemLoaded) {
+            this.carouselItemLoaded = false;
             //Force a digest cycle - Needed because I need the template to be loaded first to check for slide widths
-            $timeout(() => {
+            this.$timeout(() => {
                 this.onItemTemplateLoad();
             });
         }
 
 
-        var $rootListeners = {
+        let $rootListeners = {
             documentBrowserSizeChange: $rootScope.$on('document:browser-size-change', this.browserResize),
-            slidesChanged: $scope.$watch(function() {
+            slidesChanged: $scope.$watch(() => {
                 return this.slides;
             }, this.slidesChanged())
         };
@@ -92,7 +103,7 @@ export class SexyCarouselController {
         }
     }
 
-    private resetCarousel(): void {
+    private resetCarousel():void {
         this.carouselIndex = 0;
         this.slidesCollectionElement.css('left', '0');
 
@@ -103,12 +114,12 @@ export class SexyCarouselController {
         this.exposeRenderedSlides();
     }
 
-    private slidesChanged = () => {
+    private slidesChanged ():void {
         this.resetCarousel();
     }
 
     //Calculates slide width, slides in view and contanier width.
-    private browserResize = () => {
+    private browserResize ():void {
         let slideElements = this.$element[0].getElementsByClassName('sexyCarousel-slide');
 
         this.containerWidth = this.$element[0].offsetWidth;
@@ -116,18 +127,18 @@ export class SexyCarouselController {
 
         this.slidesInview = Math.floor(this.containerWidth / this.slideWidth);
 
-        if (numberInvewSlides === 0) {
-            numberInvewSlides = this.slidesInview;
+        if (this.numberInvewSlides === 0) {
+            this.numberInvewSlides = this.slidesInview;
         }
 
-        if (this.slidesInview !== numberInvewSlides) {
+        if (this.slidesInview !== this.numberInvewSlides) {
             this.resetCarousel();
         }
 
-        numberInvewSlides = this.slidesInview;
+        this.numberInvewSlides = this.slidesInview;
     }
 
-    private shouldArrowsBeShown(): void {
+    private shouldArrowsBeShown():void {
         if (!this.$attrs.hideArrows) {
             this.showPreviousArrow = this.carouselIndex > 0;
             this.showNextArrow = ((this.slidesInview * (this.carouselIndex + 1)) < this.slides.length);
@@ -135,16 +146,16 @@ export class SexyCarouselController {
     }
 
     //Sets the css class for each item to handle proper width resizing of slides
-    private setItemClass() {
+    private setItemClass():void {
         this.itemClasses = `sexyCarousel-slide-${this.numShowOnDesktop}-max`;
     }
 
     //Sets the number of navigation dots that are available
-    private setNavigationDots(): void {
+    private setNavigationDots():void {
         let navDots = [],
             numDots = Math.ceil(this.slides.length / this.slidesInview);
 
-        for (var i = 0; i < numDots; i++) {
+        for (let i = 0; i < numDots; i++) {
             navDots.push({
                 id: i
             });
@@ -154,11 +165,11 @@ export class SexyCarouselController {
     }
 
     //Executes the carousel slide "sliding" - does not access carouselIndex directly as 
-    private carouselSlide(direction: string): void {
+    private carouselSlide(direction:string):void {
         if (!this.$attrs.loop) { //Non looping - aka don't use order
             this.exposeRenderedSlides();
 
-            let leftAmount: number = this.carouselIndex * this.slideWidth * this.slidesInview;
+            let leftAmount:number = this.carouselIndex * this.slideWidth * this.slidesInview;
             leftAmount = leftAmount * -1;
 
             //Set the left on the slide container to "paginate" the carousel
@@ -167,7 +178,7 @@ export class SexyCarouselController {
     }
 
     //Executes call back function on slide next/previous
-    private executeSlidingCallBack() {
+    private executeSlidingCallBack():void {
         //Force a digest cycle - This is to make sure the renderedSlides object is updated properly on whatever directive is listening
         this.$timeout(() => {
             if (angular.isFunction(this.callBackSliding)) {
@@ -176,7 +187,7 @@ export class SexyCarouselController {
         });
     }
 
-    private exposeRenderedSlides() {
+    private exposeRenderedSlides():void {
         if (!isNaN(this.slidesInview)) {
             this.renderedSlides = {
                 'index': this.carouselIndex,
@@ -186,9 +197,9 @@ export class SexyCarouselController {
     }
 
     //Method that fires on load of the actual templates - will handle setting up the rest of the carousel
-    public onItemTemplateLoad() {
-        if (!carouselItemLoaded) {
-            carouselItemLoaded = true;
+    public onItemTemplateLoad():void {
+        if (!this.carouselItemLoaded) {
+            this.carouselItemLoaded = true;
             this.browserResize(); //This will handle setting up the widths and the navigational dots
             this.shouldArrowsBeShown(); //Set arrows visibility
             this.exposeRenderedSlides();
@@ -197,7 +208,7 @@ export class SexyCarouselController {
     }
 
     //Event handler for moving to the next slide
-    public nextSlide(): void {
+    public nextSlide():void {
         if ((this.slidesInview * (this.carouselIndex + 1)) < this.slides.length) {
             this.carouselIndex++;
             this.carouselSlide('next');
@@ -209,7 +220,7 @@ export class SexyCarouselController {
     }
 
     //Event handler for moving to the previous slide
-    public previousSlide(): void {
+    public previousSlide():void {
         if (this.carouselIndex > 0) {
             this.carouselIndex--;
             this.carouselSlide('previous');
@@ -221,7 +232,7 @@ export class SexyCarouselController {
     }
 
     //Direct jump to slide - for the slide indicator dots
-    public goToSlide(slideToGoTo: number): void {
+    public goToSlide(slideToGoTo:number):void {
         if (slideToGoTo === this.carouselIndex) {
             return;
         }

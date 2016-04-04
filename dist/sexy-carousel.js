@@ -683,16 +683,13 @@ $__System.register("4", ["2", "3"], function(exports_1, context_1) {
   "use strict";
   var __moduleName = context_1 && context_1.id;
   var sexy_carousel_tpl_html_text_1;
-  var carouselItemLoaded,
-      numberInvewSlides,
-      SexyCarousel,
+  var SexyCarousel,
       SexyCarouselController;
   return {
     setters: [function(sexy_carousel_tpl_html_text_1_1) {
       sexy_carousel_tpl_html_text_1 = sexy_carousel_tpl_html_text_1_1;
     }, function(_1) {}],
     execute: function() {
-      carouselItemLoaded = false, numberInvewSlides = 0;
       SexyCarousel = (function() {
         function SexyCarousel() {
           this.template = sexy_carousel_tpl_html_text_1.default;
@@ -714,7 +711,6 @@ $__System.register("4", ["2", "3"], function(exports_1, context_1) {
       exports_1("default", SexyCarousel);
       SexyCarouselController = (function() {
         function SexyCarouselController($rootScope, $scope, $attrs, $element, $timeout) {
-          'ngInject';
           var _this = this;
           this.$attrs = $attrs;
           this.$element = $element;
@@ -723,38 +719,24 @@ $__System.register("4", ["2", "3"], function(exports_1, context_1) {
           this.showNextArrow = false;
           this.showPreviousArrow = false;
           this.carouselIndex = 0;
-          this.slidesChanged = function() {
-            _this.resetCarousel();
-          };
-          this.browserResize = function() {
-            var slideElements = _this.$element[0].getElementsByClassName('sexyCarousel-slide');
-            _this.containerWidth = _this.$element[0].offsetWidth;
-            _this.slideWidth = slideElements.length > 0 ? slideElements[0].offsetWidth : 1;
-            _this.slidesInview = Math.floor(_this.containerWidth / _this.slideWidth);
-            if (numberInvewSlides === 0) {
-              numberInvewSlides = _this.slidesInview;
-            }
-            if (_this.slidesInview !== numberInvewSlides) {
-              _this.resetCarousel();
-            }
-            numberInvewSlides = _this.slidesInview;
-          };
+          this.carouselItemLoaded = false;
+          this.numberInvewSlides = 0;
           this.cardHeight = $attrs.cardHeight || 'auto';
           this.slidesCollectionElement = angular.element(this.$element[0].getElementsByClassName('sexyCarousel-slides')[0]);
           this.numShowOnDesktop = $attrs.numShowOnDesktop || 0;
           this.hideArrowsOverride = !!($attrs.hideArrows);
           this.showNavigationDots = !!($attrs.showNavigationDots);
           this.setItemClass();
-          if (carouselItemLoaded) {
-            carouselItemLoaded = false;
-            $timeout(function() {
+          if (this.carouselItemLoaded) {
+            this.carouselItemLoaded = false;
+            this.$timeout(function() {
               _this.onItemTemplateLoad();
             });
           }
           var $rootListeners = {
             documentBrowserSizeChange: $rootScope.$on('document:browser-size-change', this.browserResize),
             slidesChanged: $scope.$watch(function() {
-              return this.slides;
+              return _this.slides;
             }, this.slidesChanged())
           };
           for (var unbind in $rootListeners) {
@@ -767,6 +749,22 @@ $__System.register("4", ["2", "3"], function(exports_1, context_1) {
           this.shouldArrowsBeShown();
           this.setNavigationDots();
           this.exposeRenderedSlides();
+        };
+        SexyCarouselController.prototype.slidesChanged = function() {
+          this.resetCarousel();
+        };
+        SexyCarouselController.prototype.browserResize = function() {
+          var slideElements = this.$element[0].getElementsByClassName('sexyCarousel-slide');
+          this.containerWidth = this.$element[0].offsetWidth;
+          this.slideWidth = slideElements.length > 0 ? slideElements[0].offsetWidth : 1;
+          this.slidesInview = Math.floor(this.containerWidth / this.slideWidth);
+          if (this.numberInvewSlides === 0) {
+            this.numberInvewSlides = this.slidesInview;
+          }
+          if (this.slidesInview !== this.numberInvewSlides) {
+            this.resetCarousel();
+          }
+          this.numberInvewSlides = this.slidesInview;
         };
         SexyCarouselController.prototype.shouldArrowsBeShown = function() {
           if (!this.$attrs.hideArrows) {
@@ -810,8 +808,8 @@ $__System.register("4", ["2", "3"], function(exports_1, context_1) {
           }
         };
         SexyCarouselController.prototype.onItemTemplateLoad = function() {
-          if (!carouselItemLoaded) {
-            carouselItemLoaded = true;
+          if (!this.carouselItemLoaded) {
+            this.carouselItemLoaded = true;
             this.browserResize();
             this.shouldArrowsBeShown();
             this.exposeRenderedSlides();
@@ -847,6 +845,7 @@ $__System.register("4", ["2", "3"], function(exports_1, context_1) {
           }
           this.shouldArrowsBeShown();
         };
+        SexyCarouselController.$inject = ['$rootScope', '$scope', '$attrs', '$element', '$timeout'];
         return SexyCarouselController;
       }());
       exports_1("SexyCarouselController", SexyCarouselController);
