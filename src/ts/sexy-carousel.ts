@@ -8,10 +8,10 @@ import "../css/carousel.css!";
 // slides = the array that contains all the slides
 // item-template = the template to be used by items
 // num-show-on-desktop = number of cards to be shown on the desktop - current classes covered are 1-4 need to add more if you want to have more than that
-// card-height = the card height - defaults to auto - can pass in auto, % or px as string 
+// card-height = the card height - defaults to auto - can pass in auto, % or px as string
 // show-navigation-dots = defaults to false, if true, the nav dots will be shown below the carousel
 // hide-arrows = defaults to false, if true, navigation arrows won't be shown
-// rendered-slides = exposes what index the carousel is currently at, and how many slides are in view 
+// rendered-slides = exposes what index the carousel is currently at, and how many slides are in view
 
 // In the future feature
 // loop = defaults to false, if true, the carousel won't have a start or end point and will continuously loop
@@ -112,6 +112,8 @@ export class SexyCarouselController {
         this.setNavigationDots();
 
         this.exposeRenderedSlides();
+
+        this.executeSlidingCallBack();
     }
 
     private slidesChanged = ():void => {
@@ -164,7 +166,7 @@ export class SexyCarouselController {
         this.navigationalDots = navDots;
     }
 
-    //Executes the carousel slide "sliding" - does not access carouselIndex directly as 
+    //Executes the carousel slide "sliding" - does not access carouselIndex directly as
     private carouselSlide(direction:string):void {
         if (!this.$attrs.loop) { //Non looping - aka don't use order
             this.exposeRenderedSlides();
@@ -214,7 +216,7 @@ export class SexyCarouselController {
             this.carouselSlide('next');
             this.shouldArrowsBeShown();
 
-            //Execute call back 
+            //Execute call back
             this.executeSlidingCallBack();
         }
     }
@@ -226,7 +228,7 @@ export class SexyCarouselController {
             this.carouselSlide('previous');
             this.shouldArrowsBeShown();
 
-            //Execute call back 
+            //Execute call back
             this.executeSlidingCallBack();
         }
     }
