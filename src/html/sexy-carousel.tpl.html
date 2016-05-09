@@ -1,6 +1,6 @@
 <div class="sexyCarousel">
-    <div class="sexyCarousel-previous icon-caret-left" ng-if="scVm.showPreviousArrow" ng-click="scVm.previousSlide()"></div>
-    <div class="sexyCarousel-next icon-caret-right" ng-if="scVm.showNextArrow" ng-click="scVm.nextSlide()"></div>
+    <div class="sexyCarousel-previous icon-caret-left" ng-if="scVm.showPreviousArrow" ng-click="::scVm.previousSlide()"></div>
+    <div class="sexyCarousel-next icon-caret-right" ng-if="scVm.showNextArrow" ng-click="::scVm.nextSlide()"></div>
     <div class="sexyCarousel-content">
         <div class="sexyCarousel-slides">
             <div ng-repeat="slide in scVm.slides track by slide.id" class="sexyCarousel-slide {{::scVm.itemClasses}}" ng-style="::{'height': scVm.cardHeight}"
@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <div class="sexyCarousel-navigation" ng-if="scVm.showNavigationDots && scVm.navigationalDots.length > 1">
+    <div class="sexyCarousel-navigation" ng-if="::scVm.showNavigationDots && scVm.navigationalDots.length > 1">
         <span ng-repeat="dot in scVm.navigationalDots track by $index" ng-click="::scVm.goToSlide(dot.id)" ng-class="{'active': $index === scVm.carouselIndex}"></span>
     </div>
 </div>
