@@ -221,16 +221,16 @@ export class SexyCarouselController {
         let numOfSlidesOnDesktop;
 
         switch (this.optVisual.numShowOnDesktop) {
-            case '1':
+            case 1:
                 numOfSlidesOnDesktop = 'one';
                 break;
-            case '2':
+            case 2:
                 numOfSlidesOnDesktop = 'two';
                 break;
-            case '3':
+            case 3:
                 numOfSlidesOnDesktop = 'three';
                 break;
-            case '4': // Keeping this here - in case our default ever changes. 
+            case 4: // Keeping this here - in case our default ever changes. 
                 numOfSlidesOnDesktop = 'four';
                 break;
             default:
