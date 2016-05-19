@@ -4,7 +4,7 @@
 
 .sexyCarousel-content {
     overflow: hidden;
-    margin: 0 50px;
+    margin: 0 16px;
 }
 
 .sexyCarousel-slides {
@@ -30,7 +30,7 @@
 }
 
 .sexyCarousel-slide-four-max {
-    padding: 0 15px;
+    padding: 0 14px;
     -webkit-flex-basis: 25%;
     -moz-flex-basis: 25%;
     -ms-flex-basis: 25%;
@@ -39,8 +39,7 @@
 }
 
 .sexyCarousel-slide-three-max {
-    padding: 0 15px;
-    padding: 0 15px;
+    padding: 0 14px;
     -webkit-flex-basis: 33%;
     -moz-flex-basis: 33%;
     -ms-flex-basis: 33%;
@@ -49,7 +48,7 @@
 }
 
 .sexyCarousel-slide-two-max {
-    padding: 0 15px;
+    padding: 0 14px;
     -webkit-flex-basis: 50%;
     -moz-flex-basis: 50%;
     -ms-flex-basis: 50%;
