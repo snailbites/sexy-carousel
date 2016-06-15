@@ -57,6 +57,7 @@ export class SexyCarouselController {
     public numberInvewSlides: number = 0; // number of slides in view - if this and this.slidesInview don't match, reset the carousel.
     public callBackSliding: any;
     public renderedSlides: any;
+    public initialLoad: boolean = true; // to stop call back from executing twice upon initialization 
 
     private optVisual: any;
     private containerWidth: number;
@@ -114,6 +115,9 @@ export class SexyCarouselController {
             this.exposeRenderedSlides();
             this.setNavigationDots();
             this.setNavigationDotsClass();
+            if (!this.hideArrows) {
+                this.setArrowsClass();
+            }
 
             if (this.optVisual.autoSlideTimeMs) {
                 this.autoSlideTimerStart();
@@ -182,7 +186,11 @@ export class SexyCarouselController {
 
         this.exposeRenderedSlides();
 
-        this.executeSlidingCallBack();
+        if (!this.initialLoad) {
+            this.executeSlidingCallBack();
+        }
+
+        this.initialLoad = false;
     }
 
     private slidesChanged = (): void => {
@@ -265,6 +273,32 @@ export class SexyCarouselController {
             if (navClassesToApply.length > 0) {
                 let navDots = angular.element(this.$element[0].getElementsByClassName('sexyCarousel-navigation')[0]);
                 navDots.addClass(navClassesToApply.join(' '));
+            }
+        });
+    }
+
+    // Sets classes to show arrows on certain viewports
+    private setArrowsClass(): void {
+        // Force a digest cycle - This is to make sure the dots are actually rendered on the template.
+        this.$timeout(() => {
+            let arrowClassesToApply = [];
+
+            if (this.optVisual.hideArrowsOnDesktop) {
+                arrowClassesToApply.push('sexyCarousel-arrows-hideDesktop');
+            }
+
+            if (this.optVisual.hideArrowsOnTablet) {
+                arrowClassesToApply.push('sexyCarousel-arrows-hideTablet');
+            }
+
+            if (this.optVisual.hideArrowsOnMobile) {
+                arrowClassesToApply.push('sexyCarousel-arrows-hideMobile');
+            }
+
+
+            if (arrowClassesToApply.length > 0) {
+                let arrows = angular.element(this.$element[0].getElementsByClassName('sexyCarousel-arrow'));
+                arrows.addClass(arrowClassesToApply.join(' '));
             }
         });
     }
