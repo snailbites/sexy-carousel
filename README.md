@@ -26,6 +26,9 @@ Pure angular/flexbox based carousel - no dependency on anything except angular a
             <li>hideArrows - Show the navigation arrows. Defaults to false.</li>
             <li>renderedSlides - Expect an object - Exposes the current slides in the viewport.</li>
             <li>autoSlideTimeMs - Customize the amount of time used by the css transition when paginating through the carousel. Time is in Milliseconds</li>
+            <li>hideArrowsOnDesktop - Hide the arrows on the desktop view port - can be combined w hideArrowsOnTablet & hideArrowsOnMobile. Defaults to false</li>
+            <li>hideArrowsOnTablet - Hide the arrows on the tablet view port - can be combined w hideArrowsOnDesktop & hideArrowsOnMobile. Defaults to false</li>
+            <li>hideArrowsOnMobile - Hide the arrows on the mobile view port - can be combined w hideArrowsOnTablet & hideArrowsOnDesktop. Defaults to false</li>
         </ol>
     </li>
 </ol>
