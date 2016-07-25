@@ -7,7 +7,7 @@ Pure angular/flexbox based carousel - no dependency on anything except angular a
 
 <ol>
     <li>slides - the array that actually contains the content you want carouseled</li>
-    <li>item-teamplate - the path for the individual slide template</li>
+    <li>item-template - the path for the individual slide template</li>
 <ol>
 
 <h4>Optional attributes</h4>
@@ -29,6 +29,10 @@ Pure angular/flexbox based carousel - no dependency on anything except angular a
             <li>hideArrowsOnDesktop - Hide the arrows on the desktop view port - can be combined w hideArrowsOnTablet & hideArrowsOnMobile. Defaults to false</li>
             <li>hideArrowsOnTablet - Hide the arrows on the tablet view port - can be combined w hideArrowsOnDesktop & hideArrowsOnMobile. Defaults to false</li>
             <li>hideArrowsOnMobile - Hide the arrows on the mobile view port - can be combined w hideArrowsOnTablet & hideArrowsOnDesktop. Defaults to false</li>
+	        <li>fallBackIsVisible - Option to show a static fallback card for promotional content</li>
+            <li>fallBackCopy - Optional copy to show inside static fallback card. Link tag will be an h3</li>
+	        <li>fallBackLink - Optional link inside fallback card to take users to more results. Pass in the URL only, no HTML</li>
+
         </ol>
     </li>
 </ol>

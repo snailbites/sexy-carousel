@@ -5,7 +5,17 @@
         <div class="sexyCarousel-slides">
             <div ng-repeat="slide in scVm.slides track by slide.id" class="sexyCarousel-slide {{::scVm.itemClasses}}" ng-style="::{'height': scVm.cardHeight}"
             ng-swipe-right="scVm.previousSlide()" ng-swipe-left="scVm.nextSlide()">
-                <div ng-include="::scVm.itemTemplate" onload="scVm.onItemTemplateLoad()"></div>
+
+                <div ng-include="::scVm.itemTemplate"
+                     ng-if="::!scVm.showFallBackCard($index)"
+                     onload="scVm.onItemTemplateLoad()">
+                </div>
+
+                <div ng-if="::scVm.showFallBackCard($index)">
+                    <h3 ng-bind="::scVm.fallBackCopy"></h3>
+                    <a ng-href="::scVm.fallBackLink"></a>
+                </div>
+
             </div>
         </div>
     </div>

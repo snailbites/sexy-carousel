@@ -7,7 +7,7 @@ import '../css/carousel.css!';
 // Required attributes are the following
 // slides = the array that contains all the slides
 // item-template = the template to be used by items
-/* num-show-on-desktop = number of cards to be shown on the desktop - 
+/* num-show-on-desktop = number of cards to be shown on the desktop -
     current classes covered are 1-4 need to add more if you want to have more than that */
 // card-height = the card height - defaults to auto - can pass in auto, % or px as string
 // show-navigation-dots = defaults to false, if true, the nav dots will be shown below the carousel
@@ -29,7 +29,11 @@ export default class SexyCarousel implements ng.IDirective {
         itemTemplate: '@',
         optVisual: '=?',
         renderedSlides: '=?',
-        slides: '='
+        slides: '=',
+        fallBackIsVisible: '@?',
+        fallBackCopy: '@?',
+        fallBackLink: '@?'
+
     };
     public controller = SexyCarouselController;
     public static instance(): ng.IDirective {
@@ -57,7 +61,10 @@ export class SexyCarouselController {
     public numberInvewSlides: number = 0; // number of slides in view - if this and this.slidesInview don't match, reset the carousel.
     public callBackSliding: any;
     public renderedSlides: any;
-    public initialLoad: boolean = true; // to stop call back from executing twice upon initialization 
+    public initialLoad: boolean = true; // to stop call back from executing twice upon initialization
+	public fallBackIsVisible: boolean; // option to show a static fallback card for promotional content
+    public fallBackCopy: string; // optional copy to show inside static fallback card
+	public fallBackLink: string; // optional link inside fallback card to take users to more results
 
     private optVisual: any;
     private containerWidth: number;
@@ -174,6 +181,15 @@ export class SexyCarouselController {
         this.shouldArrowsBeShown();
     }
 
+    // Logic to show the static fallback card and in what order in the carousel
+    public showFallBackCard(index: number): boolean {
+        if (!this.fallBackIsVisible) {
+            return false;
+        }
+
+        return index  % 4 === 0;
+    }
+
     private resetCarousel(): void {
         let slideTransitionTime = this.optVisual.slideTransitionAnimationMs ? `${this.optVisual.slideTransitionAnimationMs}ms` : '350ms';
         this.carouselIndex = 0;
@@ -238,7 +254,7 @@ export class SexyCarouselController {
             case 3:
                 numOfSlidesOnDesktop = 'three';
                 break;
-            case 4: // Keeping this here - in case our default ever changes. 
+            case 4: // Keeping this here - in case our default ever changes.
                 numOfSlidesOnDesktop = 'four';
                 break;
             default:
